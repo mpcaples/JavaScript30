@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Scoped CSS Variables and JS</title>
-  <link rel="icon" href="https://fav.farm/✅" />
+  <link rel="icon" href="https://fav.farm/🔥" />
 </head>
 <body>
   <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
@@ -22,6 +22,7 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+
     :root {
       --base: #ffc600;
       --spacing: 10px;
@@ -35,7 +36,7 @@
     }
 
     .hl {
-      color: var(--base);
+      color: var(--base); 
     }
 
     /*
@@ -61,17 +62,28 @@
   </style>
 
   <script>
-    const inputs = document.querySelectorAll('.controls input');
+    const root = document.documentElement;
 
-    function handleUpdate() {
-      const suffix = this.dataset.sizing || '';
-      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    root.addEventListener('input', handleUpdate);
+    root.addEventListener('change', handleUpdate);
+    
+    function handleUpdate(event) {
+      switch (event.target.name) {
+        case 'spacing':
+          root.style.setProperty("--spacing", event.target.value + "px");
+          break; 
+        case 'base':
+          root.style.setProperty("--base", event.target.value); 
+          break; 
+        case 'blur': 
+          root.style.setProperty("--blur", event.target.value + "px"); 
+          break; 
+        default: 
+          console.log("reached default case"); 
+          break; 
+      }
     }
-
-    inputs.forEach(input => input.addEventListener('change', handleUpdate));
-    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
   </script>
-
 
 </body>
 </html>
