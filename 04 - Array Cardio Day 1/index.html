@@ -38,29 +38,81 @@
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    console.log(inventors.filter((inventor) => {
+      return inventor.year >= 1500 && inventor.year < 1600 ? inventor : null
+    }))
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    const inventorsNames = inventors.map((inventor) => {
+      return `${inventor.first} ${inventor.last}`
+    })
+    console.log(inventorsNames)
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    console.log(inventors.sort((a, b) => { // i still don't really understand how sorting works :/
+      return a.year - b.year
+    }))
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+      // ok, first sum up the amount of years each inventor lived
+      // then sum up the total amount of years lived
+      const inventorsLives = inventors.map((inventor) => {
+        return inventor.passed - inventor.year
+      }); 
+      console.log(inventorsLives)
+      const totalYearsLived = inventorsLives.reduce((total, years) => {
+        return total + years
+      }, 0)
+      console.log(totalYearsLived)
+
+      // or just do it all at once 
+      console.log(inventors.reduce((total, inventor) => total + (inventor.passed - inventor.year), 0))
 
     // 5. Sort the inventors by years lived
+    console.log(inventors.sort((a, b) => {
+      return (a.passed - a.year) - (b.passed - b.year)
+    }))
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-
+    const boulevards = ['Boulevard Auguste-Blanqui','Boulevard Barbès','Boulevard Beaumarchais','Boulevard de l\'Amiral-Bruix','Boulevard Mortier','Boulevard Poniatowski','Boulevard Soult',
+                        'Boulevard des Capucines','Boulevard de la Chapelle','Boulevard de Clichy','Boulevard du Crime','Boulevard du Général-d\'Armée-Jean-Simon','Boulevard Haussmann',
+                        'Boulevard de l\'Hôpital','Boulevard des Italiens','Boulevard Lefebvre','Boulevard de la Madeleine','Boulevard de Magenta','Boulevard Malesherbes',
+                        'Boulevard Marguerite-de-Rochechouart','Boulevard Montmartre','Boulevard du Montparnasse','Boulevard Raspail','Boulevard Richard-Lenoir',
+                        'Boulevard Saint-Germain','Boulevard Saint-Michel','Boulevard de Sébastopol','Boulevard de Strasbourg','Boulevard du Temple','Boulevard Voltaire',
+                        'Boulevard de la Zone']; 
+    boulevardsWithDe = []
+    boulevards.forEach((boul) => {
+       boul.includes('de') ? boulevardsWithDe.push(boul) : null; 
+    })
+    console.log(boulevardsWithDe)
+   
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    console.log(people.sort((a, b) => {
+      const [aLast, aFirst] = a.split(', ')
+      const [bLast, bFirst] = b.split(', ')
+      return aLast > bLast ? 1 : -1
+    }))
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
-
+    const sums = {
+      car: 0,
+      truck: 0,
+      bike: 0,
+      walk: 0,
+      van: 0
+    }
+    data.forEach((item) => {
+      sums[item]++; 
+    })
+    console.log(sums)
   </script>
 </body>
 </html>
